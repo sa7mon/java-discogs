@@ -10,10 +10,11 @@ public class Release
 {
    //  VARIABLES
    // http://www.discogs.com/developers/#page:database,header:database-release-get
-   private String title = "";
-   private Integer id = 0;
-   private String dataQuality = "";
-   private String status = "";
+   private String strTitle = "";
+   private Integer intId = 0;
+   private String strDataQuality = "";
+   private String strStatus = "";
+   private String strUri = "";
    
    // Default constructor method
    public Release(String releaseID)
@@ -23,17 +24,17 @@ public class Release
       
       try {
          // Get the JSON response
-         String jsonResp = ClsRest.httpGet("https://api.discogs.com/releases/"+releaseID);
-         System.out.println("Response: "+jsonResp);
+    	 RestGet releaseResponse = new RestGet("https://api.discogs.com/releases/"+releaseID);
+         System.out.println("Response: "+releaseResponse.toString());
          
          // Create an object
-         Object obj = parser.parse(jsonResp);
+         Object obj = parser.parse(releaseResponse.toString());
 
          JSONObject jsonObject = (JSONObject) obj;
 
-         title = (String) jsonObject.get("title");
-         //id = (Integer) jsonObject.get("id").toString();
-         dataQuality = (String) jsonObject.get("data_quality");
+         strTitle = (String) jsonObject.get("title");
+         intId = (Integer) Integer.parseInt(jsonObject.get("id").toString());
+         strDataQuality = (String) jsonObject.get("data_quality");
          
          // loop array
          //JSONArray msg = (JSONArray) jsonObject.get("messages");
@@ -55,10 +56,10 @@ public class Release
    
    //  GETTERS
    public String getTitle() {
-      return this.title;
+      return this.strTitle;
    }
 
    public Integer getID(){
-      return this.id;
+      return this.intId;
    }
 }
