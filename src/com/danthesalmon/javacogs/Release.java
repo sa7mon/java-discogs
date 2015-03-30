@@ -15,6 +15,7 @@ public class Release
    private String strDataQuality = "";
    private String strStatus = "";
    private String strUri = "";
+   private String strCompanies = "";
    
    // Default constructor method
    public Release(String releaseID)
@@ -35,6 +36,7 @@ public class Release
          strTitle = (String) jsonObject.get("title");
          intId = (Integer) Integer.parseInt(jsonObject.get("id").toString());
          strDataQuality = (String) jsonObject.get("data_quality");
+         strCompanies = (String) jsonObject.get("companies");
          
          // loop array
          //JSONArray msg = (JSONArray) jsonObject.get("messages");
@@ -61,5 +63,11 @@ public class Release
 
    public Integer getID(){
       return this.intId;
+   }
+   public String getDataQuality() {
+	   return this.strDataQuality;
+   }
+   public String getCompanies() {
+	   return this.strCompanies;
    }
 }
