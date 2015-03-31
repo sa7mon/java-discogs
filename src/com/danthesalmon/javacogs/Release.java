@@ -18,11 +18,12 @@ public class Release
    private String strDataQuality = "";
    private String strStatus = "";
    private String strUri = "";
-   private String strCompanies = "";
    private String strCountry = "";
    private Integer intMasterId = 0;
    private JSONObject jsonObject;
    private ArrayList<String> arrGenres = new ArrayList<String>();
+   private ArrayList<String> arrStyles = new ArrayList<String>();
+   private ArrayList<String> arrArtists = new ArrayList<String>();
    
    // Default constructor method
    public Release(String releaseID)
@@ -59,8 +60,7 @@ public class Release
       strDataQuality = (String) jsonObject.get("data_quality");
       
       // Get values: Genres      
-      JSONArray jsonArray = (JSONArray) jsonObject.get("genres"); 
-      arrGenres = toArrayList(jsonArray);
+      arrGenres = toStringArrayList((JSONArray) jsonObject.get("genres"));
       
       // Get value: ID
       intId = (Integer) Integer.parseInt(jsonObject.get("id").toString());
@@ -68,13 +68,18 @@ public class Release
       // Get value: master_id
       intMasterId = (Integer) Integer.parseInt(jsonObject.get("master_id").toString());
          
+      // Get value: Styles
+      arrStyles = toStringArrayList((JSONArray) jsonObject.get("styles"));
+      // System.out.println(jsonObject.get("styles").getClass().toString());
+      
       // Get value: title
       strTitle = (String) jsonObject.get("title");
    
    } // End constructor method
 
+   
    //  GENERAL PURPOSE METHODS
-   private ArrayList <String> toArrayList(JSONArray jsArray) {
+   private ArrayList <String> toStringArrayList(JSONArray jsArray) {
       // Takes a JSONArray object and returns an arrayList of various types.
       
       ArrayList<String> arrStrings = new ArrayList<String>();
@@ -106,9 +111,6 @@ public class Release
    }
    public String getDataQuality() {
 	   return this.strDataQuality;
-   }
-   public String getCompanies() {
-	   return this.strCompanies;
    }
    public ArrayList getGenres() {
       return this.arrGenres;
